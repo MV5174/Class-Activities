@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+
+  <meta charset="UTF-8">
+  <title>Click Button with Firebase!</title>
+
+</head>
+
+<body>
+
+  <!-- Text with spanID that gets filled with content -->
+  <p>After clicking, go to the firebase database to see the click counter go up.</p>
+  <p>
+    While clicking, put this html file to the left, and show the firebase database on the right to show how firebase is real time!
+  </p>
+
+  <!-- Button -->
+  <button id="click-button">Click Me!!!!</button>
+
+  <!-- JQuery -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <!-- ================================================================================== -->
+
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/6.3.0/firebase-database.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#config-web-app -->
+
+<script>
+  // Your web app's Firebase configuration
+  var firebaseConfig = {
+    apiKey: "AIzaSyAOn2cm3l005arGIY2DBX6Ccirw-5o6lHI",
+    authDomain: "test-project-e55be.firebaseapp.com",
+    databaseURL: "https://test-project-e55be.firebaseio.com",
+    projectId: "test-project-e55be",
+    storageBucket: "",
+    messagingSenderId: "31934415382",
+    appId: "1:31934415382:web:f538ec8ed7abe5d2"
+  };
+  // Initialize Firebase
+  firebase.initializeApp(firebaseConfig);
+
+
+
+    // Variables
+    // ================================================================================
+
+    // Get a reference to the database service
+    var database = firebase.database();
+
+    // Initializing our click count at 0
+    var clickCounter = 0;
+
+    // Functions
+    // ================================================================================
+
+    // On Click
+    $("#click-button").on("click", function() {
+
+      // Add 1 to clickCounter
+      clickCounter++;
+      console.log(clickCounter);
+
+      // **** Store Click Data to Firebase in a JSON property called clickCount *****
+      // **** Note how we are using the Firebase .set() method ****
+      // **** .ref() refers to the path you want to save your data to
+      // **** Since we left .ref() blank, it will save to the root directory
+      database.ref().set({
+        clickCount: clickCounter,
+        name: "Michael"
+      });
+
+      // Now! go to https://fir-click-counter-7cdb9.firebaseio.com/ to see the impact to the DB
+    });
+  </script>
+
+</body>
+
+</html>
